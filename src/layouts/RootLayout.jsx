@@ -8,6 +8,7 @@ function RootLayout({ children }) {
     { id: 1, label: 'Home', link: '/' },
     { id: 2, label: 'Laboratorium 1', link: '/lab1' },
     { id: 3, label: 'Laboratorium 2', link: '/lab2' },
+    { id: 4, label: 'Laboratorium 3' , link: '/lab3'}
   ];
  
   return (
