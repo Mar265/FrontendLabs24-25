@@ -1,13 +1,15 @@
 import React from 'react';
+import FlexContainer from '../components/FlexContainer';
+import Item, { data } from '../components/Item';
 
 const Lab3Page = () => {
-    return (
-        <div>
-            <h1>Laboratorium 3</h1>
-            <p>Komponenty, właściwości i stan</p>
-            <p>To jest strona Laboratorium 3</p>
-        </div>
-    );
+  return (
+    <div className="container mt-4">
+      <h1 className="text-center mb-4">Laboratorium 3</h1>
+      <p>Komponenty, właściwości i stan</p>
+      <FlexContainer element={Item} data={data} />
+    </div>
+  );
 };
 
 export default Lab3Page;
