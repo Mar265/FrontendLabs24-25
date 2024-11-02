@@ -1,22 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import 'bootstrap/dist/css/bootstrap.css';
-
+import { Container, Row, Col } from 'react-bootstrap';
+ 
 function FlexContainer({ element: Element, data }) {
   return (
-    <div className="row"> {/* Użycie row jako kontenera */}
-      {data.map((item, index) => (
-        <div className="col-12 col-md-6 col-lg-4 p-2" key={index}> {/* Kolumny wewnątrz row */}
-          <Element {...item} />
-        </div>
-      ))}
-    </div>
+    <Container>
+      <Row>
+        {data.map((item, index) => (
+          <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+            <Element {...item} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
-
-FlexContainer.propTypes = {
-  element: PropTypes.elementType.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
+ 
 export default FlexContainer;
+ 
+ 
