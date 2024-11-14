@@ -1,0 +1,13 @@
+.rating-bar {
+    font-size: 24px;
+  }
+   
+  .filled-star {
+    color: black;
+  }
+   
+  .empty-star {
+    color: lightgray;
+  }
+   
+   
