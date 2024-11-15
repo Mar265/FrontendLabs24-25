@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import RatingBar from './RatingBar';
-
-function ProfileCard({ name, birth, eyes, initialRating, onEdit, onDelete, onRate }) {
-  const [isEditing, setIsEditing] = useState(false); // Stan dla trybu edycji
-  const [newName, setNewName] = useState(name);      // Stan dla edytowanego imienia
-
-  const handleSave = () => {
-    onEdit(newName);     // Wywołanie onEdit z nową nazwą
-    setIsEditing(false); // Wyjście z trybu edycji
+ 
+function ProfileCard({ id, name, birth, eyes, rating, dispatch }) {
+  const handleRateClick = () => {
+    dispatch({
+      type: 'rate',
+      id,
+      rating: rating === 10 ? 0 : rating + 1,
+    });
   };
-
+ 
+  const handleDeleteClick = () => {
+    dispatch({
+      type: 'delete',
+      id,
+    });
+  };
+ 
+  const handleEditClick = () => {
+    const newName = prompt('Enter new name:', name);
+    if (newName !== null) {
+      dispatch({
+        type: 'edit',
+        id,
+        payload: { name: newName },
+      });
+    }
+  };
+ 
   return (
     <Card className="h-100">
       <Card.Body className="d-flex flex-column">
-        <Card.Title>
-          {isEditing ? (
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              className="form-control"
-            />
-          ) : (
-            name
-          )}
-        </Card.Title>
+        <Card.Title>{name}</Card.Title>
         <Card.Text>
           <strong>Date of Birth:</strong> {birth}
         </Card.Text>
@@ -35,26 +41,20 @@ function ProfileCard({ name, birth, eyes, initialRating, onEdit, onDelete, onRat
           <strong>Eye Color:</strong> {eyes}
         </Card.Text>
         <Card.Text>
-          <strong>Rating:</strong> {initialRating}
+          <strong>Rating:</strong> {rating}
         </Card.Text>
-
+ 
         {/* Rating Bar */}
-        <RatingBar rate={initialRating} />
-
+        <RatingBar rate={rating} />
+ 
         <div className="mt-auto">
-          {isEditing ? (
-            <Button onClick={handleSave} variant="success" className="m-1">
-              Save
-            </Button>
-          ) : (
-            <Button onClick={() => setIsEditing(true)} variant="primary" className="m-1">
-              Edit
-            </Button>
-          )}
-          <Button onClick={onDelete} variant="danger" className="m-1">
+          <Button onClick={handleEditClick} variant="primary" className="m-1">
+            Edit
+          </Button>
+          <Button onClick={handleDeleteClick} variant="danger" className="m-1">
             Delete
           </Button>
-          <Button onClick={onRate} variant="secondary" className="m-1">
+          <Button onClick={handleRateClick} variant="secondary" className="m-1">
             Rate
           </Button>
         </div>
@@ -62,15 +62,14 @@ function ProfileCard({ name, birth, eyes, initialRating, onEdit, onDelete, onRat
     </Card>
   );
 }
-
+ 
 ProfileCard.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   birth: PropTypes.string.isRequired,
   eyes: PropTypes.string.isRequired,
-  initialRating: PropTypes.number.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onRate: PropTypes.func.isRequired,
+  rating: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
-
+ 
 export default ProfileCard;
