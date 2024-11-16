@@ -2,8 +2,12 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import RatingBar from './RatingBar';
+import { useContext } from 'react';
+import AppContext from '../data/AppContext';
  
-function ProfileCard({ id, name, birth, eyes, rating, dispatch }) {
+function ProfileCard({ id, name, birth, eyes, rating }) {
+  const { dispatch } = useContext(AppContext); // Pobierz dispatch z kontekstu
+ 
   const handleRateClick = () => {
     dispatch({
       type: 'rate',
@@ -69,7 +73,7 @@ ProfileCard.propTypes = {
   birth: PropTypes.string.isRequired,
   eyes: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
  
 export default ProfileCard;
+ 

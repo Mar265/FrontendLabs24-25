@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useReducer } from 'react';
-import AppReducer from '../data/AppReducer';
+import { useContext } from 'react';
+import AppContext from '../data/AppContext';
  
-function FlexContainer({ element: Element, data }) {
-  const [items, dispatch] = useReducer(AppReducer, data);
+function FlexContainer({ element: Element }) {
+  const context = useContext(AppContext);
+  const { items, dispatch } = context; // Pobierz items i dispatch z kontekstu
  
   return (
     <Container>
@@ -21,9 +22,7 @@ function FlexContainer({ element: Element, data }) {
  
 FlexContainer.propTypes = {
   element: PropTypes.elementType.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
  
 export default FlexContainer;
- 
  
