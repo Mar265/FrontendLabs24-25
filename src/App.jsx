@@ -13,6 +13,7 @@ import AppContext from './data/AppContext';
 import { useReducer } from 'react';
 import AppReducer from './data/AppReducer';
 import CreateForm from './components/CreateForm';
+import EditForm from './components/EditForm';
  
 function App() {
   const [state, appDispatch] = useReducer(AppReducer, data);
@@ -25,7 +26,7 @@ function App() {
           <Route path="/lab2" element={<Lab2Page />} />
           <Route path="/lab3" element={<Lab3Page />} />
           <Route path="/lab4" element={<Lab4Page />} />
-          {/* <Route path="/lab4/edit" element={<EditForm />} /> */}
+          <Route path="/lab4/edit/:id" element={<EditForm />} />
           <Route path="/lab4/add" element={<CreateForm />} />
           <Route path="/people/:id" element={<PeoplePage />} />
           <Route path="*" element={<NotFoundPage />} />

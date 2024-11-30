@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import RatingBar from './RatingBar';
 import { useContext } from 'react';
 import AppContext from '../data/AppContext';
+import { useNavigate } from 'react-router-dom';
  
 function ProfileCard({ id, name, birth, eyes, rating }) {
-  const { dispatch } = useContext(AppContext); // Pobierz dispatch z kontekstu
+  const { dispatch } = useContext(AppContext);
+  const navigate = useNavigate();
  
   const handleRateClick = () => {
     dispatch({
@@ -24,14 +26,7 @@ function ProfileCard({ id, name, birth, eyes, rating }) {
   };
  
   const handleEditClick = () => {
-    const newName = prompt('Enter new name:', name);
-    if (newName !== null) {
-      dispatch({
-        type: 'edit',
-        id,
-        payload: { name: newName },
-      });
-    }
+    navigate(`/lab4/edit/${id}`);
   };
  
   return (
@@ -76,4 +71,3 @@ ProfileCard.propTypes = {
 };
  
 export default ProfileCard;
- 
