@@ -68,22 +68,22 @@ function CreateForm() {
       )}
  
       <label>
-        Name:
+        Imię:
         <input type="text" name="name" maxLength={50} required />
       </label>
       <br />
       <label>
-        Birth:
+        Data urodzenia:
         <input type="date" name="birth" required />
       </label>
       <br />
       <label>
-        Eyes:
+        Kolor oczu:
         <input type="text" name="eyes" maxLength={20} required />
       </label>
       <br />
       <label>
-        Rating:
+        Ocena:
         <input type="number" name="rating" min={0} max={10} required />
       </label>
       <br />
@@ -93,3 +93,5 @@ function CreateForm() {
 }
  
 export default CreateForm;
+ 
+ 

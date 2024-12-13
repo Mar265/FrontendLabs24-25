@@ -10,13 +10,20 @@ import HomePage from './pages/HomePage';
 import Lab3Page from './pages/Lab3Page';
 import Lab4Page from './pages/Lab4Page';
 import AppContext from './data/AppContext';
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import AppReducer from './data/AppReducer';
 import CreateForm from './components/CreateForm';
 import EditForm from './components/EditForm';
  
 function App() {
-  const [state, appDispatch] = useReducer(AppReducer, data);
+  const initialState = JSON.parse(localStorage.getItem('appState')) || data;
+ 
+  const [state, appDispatch] = useReducer(AppReducer, initialState);
+ 
+  useEffect(() => {
+    localStorage.setItem('appState', JSON.stringify(state));
+  }, [state]);
+ 
   return (
     <AppContext.Provider value={{ items: state, dispatch: appDispatch }}>
       <RootLayout>
@@ -37,3 +44,5 @@ function App() {
 }
  
 export default App;
+ 
+ 

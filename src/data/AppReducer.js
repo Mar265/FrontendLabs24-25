@@ -1,21 +1,31 @@
 const AppReducer = (state, action) => {
+  let newState;
   switch (action.type) {
     case 'add':
       const newId = state.length ? state[state.length - 1].id + 1 : 1;
-      return [...state, { ...action.item, id: newId }];
+      newState = [...state, { ...action.item, id: newId }];
+      break;
     case 'edit':
-      return state.map(item =>
+      newState = state.map(item =>
         item.id === action.id ? { ...item, ...action.updatedItem } : item
       );
+      break;
     case 'delete':
-      return state.filter(item => item.id !== action.id);
+      newState = state.filter(item => item.id !== action.id);
+      break;
     case 'rate':
-      return state.map(item =>
+      newState = state.map(item =>
         item.id === action.id ? { ...item, rating: action.rating } : item
       );
+      break;
     default:
       return state;
   }
+ 
+  localStorage.setItem('appState', JSON.stringify(newState));
+  return newState;
 };
  
 export default AppReducer;
+ 
+ 

@@ -10,23 +10,23 @@ function ProfileCard({ id, name, birth, eyes, rating }) {
   const { dispatch } = useContext(AppContext);
   const navigate = useNavigate();
  
-  const handleRateClick = () => {
-    dispatch({
-      type: 'rate',
-      id,
-      rating: rating === 10 ? 0 : rating + 1,
-    });
-  };
- 
-  const handleDeleteClick = () => {
-    dispatch({
-      type: 'delete',
-      id,
-    });
-  };
- 
-  const handleEditClick = () => {
-    navigate(`/lab4/edit/${id}`);
+  const handlers = {
+    rate: () => {
+      dispatch({
+        type: 'rate',
+        id,
+        rating: rating === 10 ? 0 : rating + 1,
+      });
+    },
+    delete: () => {
+      dispatch({
+        type: 'delete',
+        id,
+      });
+    },
+    edit: () => {
+      navigate(`/lab4/edit/${id}`);
+    },
   };
  
   return (
@@ -43,17 +43,16 @@ function ProfileCard({ id, name, birth, eyes, rating }) {
           <strong>Rating:</strong> {rating}
         </Card.Text>
  
-        {/* Rating Bar */}
         <RatingBar rate={rating} />
  
-        <div className="mt-auto">
-          <Button onClick={handleEditClick} variant="primary" className="m-1">
+        <div className="btn-group mt-auto" role="group">
+          <Button onClick={handlers.edit} variant="primary">
             Edit
           </Button>
-          <Button onClick={handleDeleteClick} variant="danger" className="m-1">
+          <Button onClick={handlers.delete} variant="danger">
             Delete
           </Button>
-          <Button onClick={handleRateClick} variant="secondary" className="m-1">
+          <Button onClick={handlers.rate} variant="secondary">
             Rate
           </Button>
         </div>
@@ -71,3 +70,5 @@ ProfileCard.propTypes = {
 };
  
 export default ProfileCard;
+ 
+ 
